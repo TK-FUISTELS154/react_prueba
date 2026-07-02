@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad Administrativa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="window-container">
+        <header>Unidad Administrativa</header>
+        
+        <div class="main-title">ADMINISTRACION UNIDAD ADMINISTRATIVA</div>
+
+        <main>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>UNIDAD</th>
+                            <th>DESCRIPCION</th>
+                            <th>CIUDAD</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-body">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer-action-box">
+                <button class="btn-control focus-default" id="btn-nuevo">Nuevo</button>
+                <button class="btn-control" id="btn-editar">Editar</button>
+                <button class="btn-control" id="btn-eliminar">Eliminar</button>
+                <button class="btn-control" id="btn-seleccionar">Seleccionar</button>
+                <button class="btn-control" id="btn-salir">Salir</button>
+            </div>
+        </main>
+    </div>
+
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">Unidad Administrativa</div>
+            <div class="popup-title">UNIDAD ADMINISTRATIVA</div>
+            <div class="popup-body">
+                <div class="popup-form-box">
+                    <div class="popup-label-text">Unidad Administrativa:</div>
+                    <div>
+                        <input type="text" class="popup-input small" id="popup-unidad-id" value="">
+                    </div>
+
+                    <div class="popup-label-text">Ciudad:</div>
+                    <div>
+                        <input type="text" class="popup-input" id="popup-ciudad" value="">
+                    </div>
+
+                    <div class="popup-label-text" style="align-self: start; padding-top: 4px;">Descripción:</div>
+                    <div>
+                        <textarea class="popup-textarea" id="popup-descripcion"></textarea>
+                    </div>
+                </div>
+
+                <div class="popup-footer">
+                    <button class="btn-control" id="popup-grabar"><u>G</u>rabar</button>
+                    <button class="btn-control" id="popup-salir"><u>S</u>alir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="../../../../js/iframe-resize.js"></script>
+    <script src="../../../../js/modal-close.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficinas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="window-container">
+        <header>OFICINA</header>
+        
+        <div class="sub-header">
+            <div>UNIDAD: UFV 2026</div>
+        </div>
+
+        <div class="main-title">OFICINA</div>
+
+        <main>
+            <div class="top-section">
+                <div class="form-inputs">
+                    <div>Oficina</div>
+                    <input type="text" id="input-oficina-id" class="center-text" value="" readonly>
+                    <select id="select-oficina"></select>
+                    <div id="status-label" class="status-tag">INACTIVO</div>
+
+                    <div style="align-self: start; padding-top: 4px;">Observación</div>
+                    <textarea id="txt-observacion" readonly></textarea>
+                </div>
+
+                <div class="side-actions">
+                    <button class="btn-side" id="btn-side-nuevo">Nuevo</button>
+                    <button class="btn-side active-focus" id="btn-side-modificar">Modificar</button>
+                    <button class="btn-side" id="btn-side-activar">Activar</button>
+                    <button class="btn-side" id="btn-side-inactivar" disabled>Inactivar</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="center">Cod.</th>
+                            <th>Responsable</th>
+                            <th>Cargo</th>
+                            <th>CI</th>
+                            <th>Expedido</th>
+                            <th class="center">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-responsables">
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer-controls">
+                <div class="action-group-box">
+                    <button class="btn-footer" id="btn-footer-activar">Activar</button>
+                    <button class="btn-footer disabled" id="btn-footer-inactivar" disabled>Inactivar</button>
+                    <button class="btn-footer" id="btn-footer-nuevo">Nuevo</button>
+                    <button class="btn-footer" id="btn-footer-modificar">Modificar</button>
+                    <button class="btn-footer disabled" id="btn-footer-guardar" disabled>Guardar</button>
+                    <button class="btn-footer disabled" id="btn-footer-deshacer" disabled>Deshacer</button>
+                </div>
+                <button class="btn-footer btn-salir" id="btn-salir">Salir</button>
+            </div>
+        </main>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-window">
+            <div class="modal-header">
+                <span id="modal-titulo">NUEVA OFICINA</span>
+                <button class="modal-close-btn" id="modal-btn-cerrar">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-form-grid">
+                    <label for="modal-entidad">Entidad</label>
+                    <input type="text" id="modal-entidad" class="modal-input">
+
+                    <label for="modal-unidad">Unidad</label>
+                    <input type="text" id="modal-unidad" class="modal-input">
+
+                    <label for="modal-descrip">Descripción</label>
+                    <input type="text" id="modal-descrip" class="modal-input">
+
+                    <label for="modal-ciudad">Ciudad</label>
+                    <input type="text" id="modal-ciudad" class="modal-input">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-footer" id="modal-btn-guardar">Guardar</button>
+                <button class="btn-footer" id="modal-btn-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-overlay" class="modal-overlay hidden">
+        <div class="modal-window modal-window-sm">
+            <div class="modal-header">
+                <span id="confirm-titulo">Confirmación</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-mensaje" style="font-size:14px; color:#10263c; padding: 8px 0;"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-footer" id="confirm-btn-ok">Aceptar</button>
+                <button class="btn-footer" id="confirm-btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="alert-overlay" class="modal-overlay hidden">
+        <div class="modal-window modal-window-sm">
+            <div class="modal-header">
+                <span id="alert-titulo">Información</span>
+            </div>
+            <div class="modal-body">
+                <p id="alert-mensaje" style="font-size:14px; color:#10263c; padding: 8px 0;"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-footer" id="alert-btn-ok">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="../../../../js/iframe-resize.js"></script>
+    <script src="../../../../js/modal-close.js"></script>
+</body>
+</html>

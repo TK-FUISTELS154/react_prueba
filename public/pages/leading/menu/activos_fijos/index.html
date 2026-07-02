@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad Administrativa - Sistema</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #dcdcdc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .window-container {
+            width: 780px;
+            background-color: #f0f0f0;
+            border: 2px solid #ffffff;
+            outline: 2px solid #999999;
+            box-shadow: 3px 3px 12px rgba(0,0,0,0.3);
+        }
+
+        header {
+            background: linear-gradient(to right, #1a1a1a, #4a4a4a);
+            padding: 5px 10px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: bold;
+            border-bottom: 1px solid #000;
+        }
+
+        .main-title {
+            background: linear-gradient(to bottom, #4178a9, #1b3750);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #0f2233;
+        }
+
+        main {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .table-container {
+            width: 100%;
+            max-height: 240px;
+            overflow-y: scroll;
+            overflow-x: scroll;
+            border: 1px solid #7f9db9;
+            background-color: #ffffff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            min-width: 700px;
+        }
+
+        th {
+            background: linear-gradient(to bottom, #0a4075, #062a4e);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 6px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            border: 1px solid #7f9db9;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        td {
+            border: 1px solid #b5b59a;
+            height: 24px;
+            font-size: 13px;
+            padding: 2px 8px;
+            color: #000;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        tr.selected-row td {
+            background-color: #b1d7fe;
+            color: #000;
+        }
+
+        tbody tr:hover td {
+            background-color: #d6ecff;
+        }
+
+        tbody tr.selected-row:hover td {
+            background-color: #9acefe;
+        }
+
+        th:nth-child(1), td:nth-child(1) { width: 22%; }
+        th:nth-child(2), td:nth-child(2) { width: 56%; }
+        th:nth-child(3), td:nth-child(3) { width: 22%; }
+
+        .footer-action-box {
+            border: 1px solid #a0b8d9;
+            border-radius: 10px;
+            padding: 12px;
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .btn-control {
+            min-width: 105px;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            background: linear-gradient(to bottom, #417394, #0b2e46);
+            border: 1px solid #10263c;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.3), inset 0px 1px 0px rgba(255,255,255,0.3);
+            outline: none;
+        }
+
+        .btn-control:hover:not(:disabled) {
+            background: linear-gradient(to bottom, #528cb3, #114263);
+        }
+
+        .btn-control:disabled {
+            background: linear-gradient(to bottom, #b5b5b5, #7e7e7e);
+            border: 1px solid #888;
+            color: #ddd;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* ── MODALES ── */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-overlay.hidden { display: none; }
+
+        .modal-window {
+            width: 440px;
+            background-color: #f0f0f0;
+            border: 2px solid #ffffff;
+            outline: 2px solid #888;
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+        }
+        .modal-window-sm { width: 340px; }
+
+        .modal-header {
+            background: linear-gradient(to bottom, #4178a9, #1b3750);
+            color: white;
+            padding: 8px 14px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+        }
+        .modal-close-btn:hover { color: #cce0f5; }
+
+        .modal-body {
+            padding: 18px 20px 12px 20px;
+        }
+
+        .modal-form-grid {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 10px 10px;
+            align-items: center;
+            font-size: 13px;
+            color: #10263c;
+            font-weight: bold;
+        }
+
+        .modal-input {
+            background-color: #ffffe1;
+            border: 1px solid #7f9db9;
+            padding: 4px 6px;
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+            height: 26px;
+        }
+
+        .modal-input:focus {
+            border-color: #4178a9;
+            box-shadow: 0 0 3px rgba(65,120,169,0.4);
+        }
+
+        .modal-input[readonly] {
+            background-color: #e8e8e8;
+            color: #666;
+        }
+
+        .modal-footer {
+            padding: 10px 16px 14px 16px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            border-top: 1px solid #c8d8e8;
+            background-color: #f7f9fc;
+        }
+
+        .btn-modal {
+            min-width: 85px;
+            padding: 5px 12px;
+            font-size: 13px;
+            color: white;
+            background: linear-gradient(to bottom, #417394, #0b2e46);
+            border: 1px solid #10263c;
+            cursor: pointer;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+        .btn-modal:hover { background: linear-gradient(to bottom, #528cb3, #114263); }
+
+        .modal-msg-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .modal-msg-text {
+            font-size: 13px;
+            color: #10263c;
+            padding: 4px 0 8px 0;
+            line-height: 1.5;
+        }
+
+        tr.empty-row td { background-color: #ffffff; cursor: default; }
+        tr.empty-row:hover td { background-color: #ffffff; }
+    </style>
+</head>
+<body>
+
+    <div class="window-container">
+        <header>Unidad Administrativa</header>
+        <div class="main-title">ADMINISTRACION UNIDAD ADMINISTRATIVA</div>
+
+        <main>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>UNIDAD</th>
+                            <th>DESCRIPCION</th>
+                            <th>CIUDAD</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-body">
+                        <tr class="empty-row"><td colspan="3" style="text-align:center;color:#888;font-style:italic;padding:12px;">Cargando datos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer-action-box">
+                <button class="btn-control" id="btn-nuevo">Nuevo</button>
+                <button class="btn-control" id="btn-editar" disabled>Editar</button>
+                <button class="btn-control" id="btn-eliminar" disabled>Eliminar</button>
+                <button class="btn-control" id="btn-seleccionar" disabled>Seleccionar</button>
+                <button class="btn-control" id="btn-salir">Salir</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL: Nuevo / Editar -->
+    <div id="modal-form" class="modal-overlay hidden">
+        <div class="modal-window">
+            <div class="modal-header">
+                <span id="modal-form-titulo">NUEVA UNIDAD ADMINISTRATIVA</span>
+                <button class="modal-close-btn" id="modal-form-cerrar">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-form-grid">
+                    <label for="f-entidad">Entidad</label>
+                    <input type="number" id="f-entidad" class="modal-input" placeholder="Ej: 1" min="1">
+
+                    <label for="f-unidad">Unidad</label>
+                    <input type="number" id="f-unidad" class="modal-input" placeholder="Ej: 25" min="1">
+
+                    <label for="f-descrip">Descripción</label>
+                    <input type="text" id="f-descrip" class="modal-input" placeholder="Nombre de la unidad">
+
+                    <label for="f-ciudad">Ciudad</label>
+                    <input type="text" id="f-ciudad" class="modal-input" placeholder="Ej: LA PAZ">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal" id="modal-form-guardar">Guardar</button>
+                <button class="btn-modal" id="modal-form-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Confirmación -->
+    <div id="modal-confirm" class="modal-overlay hidden">
+        <div class="modal-window modal-window-sm">
+            <div class="modal-header">
+                <span id="modal-confirm-titulo">Confirmación</span>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <span class="modal-msg-icon">⚠️</span>
+                <p id="modal-confirm-msg" class="modal-msg-text"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal" id="modal-confirm-ok">Aceptar</button>
+                <button class="btn-modal" id="modal-confirm-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Alerta / Info -->
+    <div id="modal-alert" class="modal-overlay hidden">
+        <div class="modal-window modal-window-sm">
+            <div class="modal-header">
+                <span id="modal-alert-titulo">Información</span>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <span id="modal-alert-icon" class="modal-msg-icon">ℹ️</span>
+                <p id="modal-alert-msg" class="modal-msg-text"></p>
+            </div>
+            <div class="modal-footer" style="justify-content:center;">
+                <button class="btn-modal" id="modal-alert-ok">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="../../../../js/iframe-resize.js"></script>
+    <script src="../../../../js/modal-close.js"></script>
+</body>
+</html>

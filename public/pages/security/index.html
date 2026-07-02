@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Seguridad</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="dialog">
+
+    <div class="dialog-title">
+      <span>SEGURIDAD</span>
+    </div>
+
+    <div class="dialog-header">SEGURIDAD</div>
+
+    <div class="dialog-body">
+
+      <div class="form-row">
+        <div class="form-label">USUARIO:</div>
+        <input class="form-input input-short" id="fUser" value="admin" readonly>
+        <div class="form-label label-right">CONTRASEÑA ASIGNADA:</div>
+        <input class="form-input input-short" id="fPass" type="password">
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">NOMBRE COMPLETO:</div>
+        <input class="form-input input-long" id="fNombre" type="text">
+      </div>
+
+      <div class="form-row" style="align-items:flex-start;">
+        <div class="form-label" style="padding-top:4px;">DESCRIPCION:</div>
+        <textarea class="form-input input-area" id="fDesc"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">TIPO DE<br>USUARIO:</div>
+        <div class="radio-group">
+          <label><input type="radio" name="tipo" value="Operador"> Operador</label>
+          <label><input type="radio" name="tipo" value="Administrador" checked> Administrador</label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dialog-footer">
+      <button class="btn-nav" onclick="navFirst()">Primero</button>
+      <button class="btn-nav" onclick="navPrev()">Anterior</button>
+      <button class="btn-nav" onclick="navNext()">Siguiente</button>
+      <button class="btn-nav" onclick="navLast()">Último</button>
+      <button class="btn-nav" onclick="navNew()">Nuevo</button>
+      <button class="btn-nav" onclick="navEdit()">Editar</button>
+      <button class="btn-nav gray" id="btnGuardar" onclick="window.location.href = '../../pages/gfpictprevue/'">Guardar</button>
+      <button class="btn-nav gray" id="btnDeshacer" onclick="navUndo()">Deshacer</button>
+      <button class="btn-nav" onclick="navSalir()">Salir</button>
+    </div>
+
+  </div>
+
+  <script src="seguridad.js"></script>
+</body>
+
+</html>

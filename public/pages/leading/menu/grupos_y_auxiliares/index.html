@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupos Contables</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="window-container">
+    <header>GRUPOS CONTABLES</header>
+
+    <div class="sub-header">
+        <div>UNIDAD: UFV 2026</div>
+    </div>
+
+    <div class="main-title">GRUPO CONTABLE</div>
+
+    <main>
+        <div class="form-container">
+
+            <div class="left-inputs">
+                <div>Grupo</div>
+                <input type="text" id="input-grupo" class="center-text" value="" readonly>
+
+                <div>Vida Util</div>
+                <input type="text" id="input-vida-util" class="center-text" value="" readonly>
+            </div>
+
+            <div class="right-inputs">
+                <div>Nombre</div>
+                <select id="select-nombre"></select>
+
+                <div style="padding-top: 5px;">Observaciones</div>
+                <textarea id="txt-observaciones" readonly></textarea>
+
+                <div class="checkbox-container">
+                    <div class="checkbox-item">
+                        <label for="chk-deprecia">Deprecia</label>
+                        <input type="checkbox" id="chk-deprecia" disabled>
+                    </div>
+                    <div class="checkbox-item">
+                        <label for="chk-actualiza">Actualiza</label>
+                        <input type="checkbox" id="chk-actualiza" disabled>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="table-container">
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="position:sticky;top:0;z-index:1;">CODIGO</th>
+                            <th style="position:sticky;top:0;z-index:1;">NOMBRE AUXILIAR</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="button-bar">
+            <button class="btn" id="btn-nuevo">Nuevo</button>
+            <button class="btn" id="btn-modificar">Modificar</button>
+            <button class="btn disabled" id="btn-guardar" disabled>Guardar</button>
+            <button class="btn" id="btn-eliminar">Eliminar</button>
+            <button class="btn disabled" id="btn-deshacer" disabled>Deshacer</button>
+            <button class="btn" id="btn-salir">Salir</button>
+        </div>
+    </main>
+</div>
+
+<div id="loading-overlay" style="display:none;" class="overlay-base">
+    <div class="loading-box">
+        <div class="spinner"></div>
+        <div class="loading-text">Conectando con el servidor...</div>
+    </div>
+</div>
+
+<div id="modal-overlay" style="display:none;" class="overlay-base">
+    <div class="popup-content popup-small">
+        <div class="popup-header" id="modal-titulo">Información</div>
+        <div class="popup-body" style="padding: 25px; text-align:center;">
+            <div id="modal-icono" class="modal-icono">✔</div>
+            <p id="modal-mensaje" style="font-size:14px; margin-top:10px; color:#10263c;"></p>
+        </div>
+        <div class="popup-footer" style="justify-content:center;">
+            <button class="btn" id="modal-ok" style="flex:0; padding:5px 30px;">Aceptar</button>
+        </div>
+    </div>
+</div>
+
+<div id="confirm-overlay" style="display:none;" class="overlay-base">
+    <div class="popup-content popup-small">
+        <div class="popup-header">Confirmación</div>
+        <div class="popup-body" style="padding: 25px; text-align:center;">
+            <div class="modal-icono advertencia">⚠</div>
+            <p id="confirm-mensaje" style="font-size:14px; margin-top:10px; color:#10263c;"></p>
+        </div>
+        <div class="popup-footer" style="justify-content:center; gap:20px;">
+            <button class="btn" id="confirm-si"  style="flex:0; padding:5px 30px;">Sí</button>
+            <button class="btn btn-danger" id="confirm-no" style="flex:0; padding:5px 30px;">No</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script src="../../../../js/iframe-resize.js"></script>
+<script src="../../../../js/modal-close.js"></script>
+</body>
+</html>
